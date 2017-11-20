@@ -3,11 +3,13 @@
 
 extern crate rocket;
 
+mod recipes;
+
 #[get("/")]
 fn index() -> &'static str {
     "Hello, world!"
 }
-#[get("/")]
+
 fn recipes() -> &'static str {
     "List of all recipes"
 }
@@ -15,6 +17,6 @@ fn recipes() -> &'static str {
 fn main() {
     rocket::ignite()
     	.mount("/", routes![index])
-    	.mount("recipes", routes![recipes])
+    	.mount("/recipes", routes![recipes::index])
     	.launch();
 }
