@@ -2,6 +2,9 @@
 #![plugin(rocket_codegen)]
 
 extern crate rocket;
+extern crate rocket_contrib;
+
+use rocket_contrib::Template;
 
 mod recipes;
 
@@ -10,13 +13,11 @@ fn index() -> &'static str {
     "Hello, world!"
 }
 
-fn recipes() -> &'static str {
-    "List of all recipes"
-}
 
 fn main() {
     rocket::ignite()
     	.mount("/", routes![index])
     	.mount("/recipes", routes![recipes::index])
+    	.attach(Template::fairing())
     	.launch();
 }
