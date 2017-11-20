@@ -11,9 +11,10 @@ $ git clone https://github.com/RaspberryCook/blazingfast_website
 $ cd blazingfast_website
 ~~~
 
-And then compile & run project with **cargo**
+And then use Rust Nightly to compile & run project with **cargo**
 
 ~~~bash
+$ rustup override set nightly
 $ cargo run
 ~~~
 
