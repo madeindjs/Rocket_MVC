@@ -18,7 +18,7 @@ use diesel::LimitDsl;
 use diesel::LoadDsl;
 
 
-mod recipes_controller;
+mod controller;
 mod models;
 mod database;
 mod schema;
@@ -48,8 +48,8 @@ fn index() -> Template {
 fn main() {
     rocket::ignite()
         .mount("/", routes![index])
-        .mount("/recipes", routes![recipes_controller::index])
-        .mount("/recipes", routes![recipes_controller::show])
+        .mount("/recipes", routes![controller::recipes::index])
+        .mount("/recipes", routes![controller::recipes::show])
         .attach(Template::fairing())
         .launch();
 }
