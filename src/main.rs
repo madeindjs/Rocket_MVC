@@ -4,7 +4,8 @@
 extern crate rocket_contrib;
 extern crate rocket;
 
-#[macro_use] extern crate serde_derive;
+#[macro_use]
+extern crate serde_derive;
 
 use rocket_contrib::Template;
 
@@ -13,16 +14,17 @@ mod recipe;
 
 
 #[get("/")]
-fn index() -> &'static str {
-    "Hello, world!"
+fn index() -> Template {
+    let map = ();
+    Template::render("index", &map)
 }
 
 
 fn main() {
     rocket::ignite()
-    	.mount("/", routes![index])
-    	.mount("/recipes", routes![recipes::index])
-    	.mount("/recipes", routes![recipes::show])
-    	.attach(Template::fairing())
-    	.launch();
+        .mount("/", routes![index])
+        .mount("/recipes", routes![recipes::index])
+        .mount("/recipes", routes![recipes::show])
+        .attach(Template::fairing())
+        .launch();
 }
