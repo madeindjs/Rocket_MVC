@@ -16,18 +16,11 @@ pub mod recipes {
 
         let connection = database::establish_connection();
         let results = recipes
-            .filter(id.eq(1))
-            .limit(5)
+            .limit(20)
             .load::<models::Recipe>(&connection)
             .expect("Error loading recipes");
 
-        println!("Displaying {} recipes", results.len());
-        for recipe in results {
-            println!("{}", recipe.name);
-        }
-
-
-        Template::render("index", &map)
+        Template::render("recipes/index", &results)
     }
 
     #[get("/<slug>")]
