@@ -27,7 +27,7 @@ pub mod recipes {
     pub fn show(slug: String) -> Template {
         // let recipe = models::Recipe{slug: slug};
         let recipe = ();
-        Template::render("recipe", recipe)
+        Template::render("recipes/show", recipe)
     }
 }
 
@@ -37,6 +37,6 @@ pub mod pages {
     #[get("/")]
     pub fn home() -> Template {
         let map = ();
-        Template::render("index", &map)
+        Template::render("pages/home", &map)
     }
 }
