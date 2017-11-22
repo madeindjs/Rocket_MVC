@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Raspberry Cook</title>
+</head>
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/recipes">Recipes</a></li>
+			</ul>
+		</nav>
+	</header>
+	<h1>Liste des recettes</h1>
+	<ul>
+		{{#each this}}
+			<li><a href="/recipes/{{id}}">{{name}}</a></li>
+		{{/each}}
+	</ul>
+</body>
+</html>

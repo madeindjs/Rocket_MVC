@@ -12,8 +12,6 @@ pub mod recipes {
 
     #[get("/")]
     pub fn index() -> Template {
-        let map = ();
-
         let connection = database::establish_connection();
         let results = recipes
             .limit(20)
@@ -23,11 +21,15 @@ pub mod recipes {
         Template::render("recipes/index", &results)
     }
 
-    #[get("/<slug>")]
-    pub fn show(slug: String) -> Template {
-        // let recipe = models::Recipe{slug: slug};
-        let recipe = ();
-        Template::render("recipes/show", recipe)
+    #[get("/<recipe_id>")]
+    pub fn show(recipe_id: i32) -> Template {
+        let connection = database::establish_connection();
+        let results = recipes
+            .filter(id.eq(recipe_id))
+            .limit(1)
+            .load::<models::Recipe>(&connection)
+            .expect("Error loading recipes");
+        Template::render("recipes/show", results.first())
     }
 }
 
