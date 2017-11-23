@@ -26,6 +26,7 @@ fn main() {
         .mount("/", routes![controller::pages::home])
         .mount("/recipes", routes![controller::recipes::index])
         .mount("/recipes", routes![controller::recipes::show])
+        .mount("/recipes", routes![controller::recipes::new])
         .attach(Template::fairing())
         .launch();
 }

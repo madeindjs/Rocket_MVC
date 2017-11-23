@@ -31,6 +31,11 @@ pub mod recipes {
             .expect("Error loading recipes");
         Template::render("recipes/show", results.first())
     }
+
+    #[get("/new")]
+    pub fn new() -> Template {
+        Template::render("recipes/new", &())
+    }
 }
 
 pub mod pages {
