@@ -1,13 +1,14 @@
-// use models;
-
 pub mod recipes {
     use rocket_contrib::Template;
-    use diesel::prelude::*;
+    use rocket::response::Redirect;
+    use rocket::request::Form;
     use schema::recipes::dsl::*;
+    use diesel::prelude::*;
     use diesel::LimitDsl;
     use diesel::LoadDsl;
 
     use models;
+    use forms;
     use database;
 
     #[get("/")]
@@ -35,6 +36,22 @@ pub mod recipes {
     #[get("/new")]
     pub fn new() -> Template {
         Template::render("recipes/new", &())
+    }
+
+    #[post("/", data = "<form_data>")]
+    pub fn create(form_data: Form<forms::Recipe>) -> Redirect {
+        use diesel;
+
+        let connection = database::establish_connection();
+        let recipe = models::NewRecipe {
+            id: None,
+            name: form_data.get().name.to_string(),
+        };
+
+        match diesel::insert(&recipe).into(recipes).execute(&connection) {
+            Ok(_) => Redirect::to("/recipes"),
+            Err(error) => panic!("There was a problem opening the file: {:?}", error),
+        }
     }
 }
 
