@@ -33,6 +33,17 @@ pub mod recipes {
         Template::render("recipes/show", results.first())
     }
 
+    #[get("/<recipe_id>/edit")]
+    pub fn edit(recipe_id: i32) -> Template {
+        let connection = database::establish_connection();
+        let results = recipes
+            .filter(id.eq(recipe_id))
+            .limit(1)
+            .load::<models::Recipe>(&connection)
+            .expect("Error loading recipes");
+        Template::render("recipes/edit", results.first())
+    }
+
     #[get("/new")]
     pub fn new() -> Template {
         Template::render("recipes/new", &())

@@ -24,10 +24,11 @@ mod schema;
 fn main() {
     rocket::ignite()
         .mount("/", routes![controller::pages::home])
+        .mount("/recipes", routes![controller::recipes::create])
         .mount("/recipes", routes![controller::recipes::index])
         .mount("/recipes", routes![controller::recipes::show])
         .mount("/recipes", routes![controller::recipes::new])
-        .mount("/recipes", routes![controller::recipes::create])
+        .mount("/recipes", routes![controller::recipes::edit])
         .attach(Template::fairing())
         .launch();
 }
