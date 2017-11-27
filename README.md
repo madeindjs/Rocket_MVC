@@ -4,34 +4,31 @@ Migrate <https://raspberry-cook.fr> from [Ruby on Rails](http://rubyonrails.org/
 
 ## Instalation
 
-~~~bash
-cargo install diesel_cli --no-default-features --features sqlite
-~~~
-
-### Database
-
-~~~bash
-$ diesel setup
-~~~
-
-### Server
-
-[Install Rust](https://www.rust-lang.org/install.html) & then clone this repository:
+First you need to [install Rust](https://www.rust-lang.org/install.html). Then Clone the repository and go in the folder
 
 ~~~bash
 $ git clone https://github.com/RaspberryCook/blazingfast_website
 $ cd blazingfast_website
 ~~~
 
-And then use Rust Nightly to compile & run project with **cargo**
+According to [Rocket], you need to use Nightly version of Rust
 
 ~~~bash
 $ rustup override set nightly
-$ cargo run
 ~~~
 
+Then install [diesel_cli](https://github.com/diesel-rs/diesel/tree/master/diesel_cli) and run database migrations
 
+~~~bash
+$ cargo install diesel_cli --no-default-features --features sqlite
+$ diesel setup
+~~~
 
+And now you can build project
+
+~~~bash
+$ cargo run
+~~~
 
 
 ## License
