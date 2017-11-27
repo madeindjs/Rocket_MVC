@@ -1,17 +1,27 @@
-# Raspberry Cook
+# Rocket MVC
 
-Migrate <https://raspberry-cook.fr> from [Ruby on Rails](http://rubyonrails.org/) to [Rust](https://www.rust-lang.org/) & [Rocket](https://rocket.rs).
+A REST web application build in [Rust](https://www.rust-lang.org/). It use [Rocket](https://rocket.rs) & [Diesel](http://diesel.rs/).
+
+This sample just an applicatio who allow you to edit recipes according to [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) conventions.
+
+- **List** recipes: GET /recipes 
+- **Create** recipes: POST /recipes
+- **Show** recipe: GET /recipes/<recipe_id>
+- **New** recipe: GET /recipes/new
+- **Edit** recipe: GET /recipes/<recipe_id>/edit
+- **Update** recipe: PUT /recipes/<recipe_id>
+- **Delete** recipe: DELETE /recipes/<recipe_id>
 
 ## Instalation
 
 First you need to [install Rust](https://www.rust-lang.org/install.html). Then Clone the repository and go in the folder
 
 ~~~bash
-$ git clone https://github.com/RaspberryCook/blazingfast_website
-$ cd blazingfast_website
+$ git clone https://github.com/madeindjs/Rocket_MVC.git
+$ cd Rocket_MVC
 ~~~
 
-According to [Rocket], you need to use Nightly version of Rust
+According to [Rocket](https://rocket.rs), you need to use Nightly version of [Rust](https://www.rust-lang.org/)
 
 ~~~bash
 $ rustup override set nightly
@@ -31,6 +41,10 @@ $ cargo run
 ~~~
 
 
+## Benchmark
+
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
+
+[Rust]: https://www.rust-lang.org/
