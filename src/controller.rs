@@ -49,6 +49,25 @@ pub mod recipes {
         Template::render("recipes/new", &())
     }
 
+
+    #[put("/<recipe_id>", data = "<form_data>")]
+    pub fn update(recipe_id: i32, form_data: Form<forms::Recipe>) -> Redirect {
+        use diesel;
+
+        let connection = database::establish_connection();
+
+        let result = diesel::update(recipes.find(recipe_id))
+            .set(name.eq(form_data.get().name.to_string()))
+            .execute(&connection);
+
+
+        match result {
+            Ok(_) => Redirect::to(&format!("/recipes/{}", recipe_id)),
+            Err(error) => panic!("There was a problem opening the file: {:?}", error),
+        }
+    }
+
+
     #[post("/", data = "<form_data>")]
     pub fn create(form_data: Form<forms::Recipe>) -> Redirect {
         use diesel;
