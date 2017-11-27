@@ -30,6 +30,7 @@ fn main() {
         .mount("/recipes", routes![controller::recipes::new])
         .mount("/recipes", routes![controller::recipes::edit])
         .mount("/recipes", routes![controller::recipes::update])
+        .mount("/recipes", routes![controller::recipes::delete])
         .attach(Template::fairing())
         .launch();
 }

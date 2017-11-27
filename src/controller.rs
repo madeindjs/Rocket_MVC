@@ -33,6 +33,28 @@ pub mod recipes {
         Template::render("recipes/show", results.first())
     }
 
+
+    #[get("/new")]
+    pub fn new() -> Template {
+        Template::render("recipes/new", &())
+    }
+
+    #[post("/", data = "<form_data>")]
+    pub fn create(form_data: Form<forms::Recipe>) -> Redirect {
+        use diesel;
+
+        let connection = database::establish_connection();
+        let recipe = models::NewRecipe {
+            id: None,
+            name: form_data.get().name.to_string(),
+        };
+
+        match diesel::insert(&recipe).into(recipes).execute(&connection) {
+            Ok(_) => Redirect::to("/recipes"),
+            Err(error) => panic!("There was a problem opening the file: {:?}", error),
+        }
+    }
+
     #[get("/<recipe_id>/edit")]
     pub fn edit(recipe_id: i32) -> Template {
         let connection = database::establish_connection();
@@ -43,12 +65,6 @@ pub mod recipes {
             .expect("Error loading recipes");
         Template::render("recipes/edit", results.first())
     }
-
-    #[get("/new")]
-    pub fn new() -> Template {
-        Template::render("recipes/new", &())
-    }
-
 
     #[put("/<recipe_id>", data = "<form_data>")]
     pub fn update(recipe_id: i32, form_data: Form<forms::Recipe>) -> Redirect {
@@ -67,18 +83,13 @@ pub mod recipes {
         }
     }
 
-
-    #[post("/", data = "<form_data>")]
-    pub fn create(form_data: Form<forms::Recipe>) -> Redirect {
+    #[delete("/<recipe_id>")]
+    pub fn delete(recipe_id: i32) -> Redirect {
         use diesel;
 
         let connection = database::establish_connection();
-        let recipe = models::NewRecipe {
-            id: None,
-            name: form_data.get().name.to_string(),
-        };
 
-        match diesel::insert(&recipe).into(recipes).execute(&connection) {
+        match diesel::delete(recipes.find(recipe_id)).execute(&connection) {
             Ok(_) => Redirect::to("/recipes"),
             Err(error) => panic!("There was a problem opening the file: {:?}", error),
         }
