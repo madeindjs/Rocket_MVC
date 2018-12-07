@@ -5,6 +5,7 @@ authors = ["Alexandre Rousseau <contact@rousseau-alexandre.de>"]
 
 [dependencies]
 rocket = "0.4.0-rc.2"
+rocket_contrib = "0.4.0-rc.2"
 # rocket_codegen = "0.4.0-rc.2"
 
 serde = "1.0"
@@ -16,7 +17,7 @@ diesel = { version = "1.0.0", features = ["sqlite"] }
 # diesel_codegen = { version = "0.16.1", features = ["sqlite"] }
 dotenv = "0.9.0"
 
-[dependencies.rocket_contrib]
-default-features = false
-features = ["handlebars_templates"]
-version = "0.4.0-rc.2"
+# [dependencies.rocket_contrib]
+# default-features = false
+# features = ["json"]
+# version = "0.4.0-rc.2"
