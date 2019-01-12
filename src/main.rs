@@ -4,17 +4,27 @@
 extern crate rocket;
 extern crate rocket_contrib;
 #[macro_use]
+extern crate diesel;
+#[macro_use]
 extern crate serde_derive;
 extern crate serde;
 extern crate serde_json;
 
+// use diesel::prelude::*;
+
+
 use rocket_contrib::json::Json;
 
+mod models;
+mod schema;
 
+use schema::recipes;
+use models::Recipe;
 
-#[derive(Serialize)]
-struct Recipe {
-    name : String
+#[derive(Insertable)]
+#[table_name="recipes"]
+pub struct NewRecipe {
+    pub name: String,
 }
 
 
@@ -24,9 +34,9 @@ fn index() -> Json<Vec<Recipe>> {
     Json(recipes)
 }
 
-#[get("/a")]
-fn show() -> Json<Recipe> {
-    Json(Recipe{name: "Recipe A".to_string()})
+#[get("/<id>")]
+fn show(id: usize) -> Json<Recipe> {
+    Json(Recipe{name: format!("Recipe {}", id)})
 }
 
 
