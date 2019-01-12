@@ -25,24 +25,7 @@ pub mod recipes {
     /// Get the given recipe from id and render it into a beautifull JSON
     #[get("/<recipe_id>")]
     pub fn show(recipe_id: i32) -> Json<models::Recipe> {
-        use diesel::ExpressionMethods;
-        use diesel::QueryDsl;
-
-        let connection = database::establish_connection();
-        let results = recipes
-            .filter(id.eq(&recipe_id))
-            .limit(1)
-            .load::<models::Recipe>(&connection)
-            .expect("Error loading recipes");
-
-        match results.first() {
-            Some(recipe) => {
-                Json(recipe.clone())
-            }
-            None => {
-                panic!("Recipe not found")
-            }
-        }
+        Json(get_recipe(&recipe_id))
     }
 
     #[post("/", data = "<form_data>")]
@@ -66,12 +49,53 @@ pub mod recipes {
         }
     }
 
+    #[put("/<recipe_id>", data = "<form_data>")]
+    pub fn update(recipe_id: i32, form_data: Form<forms::Recipe>) -> Status {
+        use diesel::ExpressionMethods;
+        use diesel::QueryDsl;
+
+        let connection = database::establish_connection();
+
+        let result = diesel::update(recipes.find(recipe_id))
+            .set(name.eq(form_data.name.to_string()))
+            .execute(&connection);
+
+        match result {
+            Ok(_) => Status::Accepted,
+            Err(error) => {
+                println!("Cannot update the recipe: {:?}", error);
+                Status::BadRequest
+            },
+        }
+    }
+
+    /// find the recipe and panic if not found
+    fn get_recipe(recipe_id: &i32) -> models::Recipe {
+        use diesel::ExpressionMethods;
+        use diesel::QueryDsl;
+
+        let connection = database::establish_connection();
+        let results = recipes
+            .filter(id.eq(recipe_id))
+            .limit(1)
+            .load::<models::Recipe>(&connection)
+            .expect("Error loading recipes");
+
+        match results.first() {
+            Some(recipe) => {
+                recipe.clone()
+            }
+            None => {
+                panic!("Recipe not found")
+            }
+        }
+    }
+
 }
 
 /// Somes pages who not linked with any model
 pub mod pages {
 
-    ///
     #[get("/")]
     pub fn home() -> String {
         "Hello world".to_string()

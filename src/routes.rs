@@ -11,5 +11,6 @@ pub fn build() -> Rocket {
         controllers::recipes::index,
         controllers::recipes::show,
         controllers::recipes::create,
+        controllers::recipes::update,
     ])
 }
