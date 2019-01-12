@@ -84,7 +84,7 @@ pub mod recipes {
     }
 
     #[delete("/<recipe_id>")]
-    pub fn delete(recipe_id: i32) -> Redirect {
+    pub fn delete(recipe_id: usize) -> Redirect {
         use diesel;
 
         let connection = database::establish_connection();
