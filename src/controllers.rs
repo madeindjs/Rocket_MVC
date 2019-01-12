@@ -4,7 +4,7 @@ pub mod recipes {
     use diesel::RunQueryDsl;
     use rocket_contrib::json::Json;
     use schema::recipes::dsl::*;
-    
+
     use models::Recipe;
     use database;
 
@@ -40,4 +40,12 @@ pub mod recipes {
         }
     }
 
+}
+
+pub mod pages {
+
+    #[get("/")]
+    pub fn home() -> String {
+        "Hello world".to_string()
+    }
 }
