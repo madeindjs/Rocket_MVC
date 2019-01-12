@@ -11,26 +11,8 @@ extern crate serde;
 extern crate dotenv;
 extern crate serde_json;
 
-// use diesel::prelude::*;
-
-
-mod models;
+pub mod models;
 mod schema;
 mod database;
 mod controllers;
-mod routes;
-
-// use schema::recipes;
-
-// #[derive(Insertable)]
-// #[table_name="recipes"]
-// pub struct NewRecipe {
-//     pub name: String,
-// }
-
-
-
-
-fn main() {
-    routes::build().launch();
-}
+pub mod routes;

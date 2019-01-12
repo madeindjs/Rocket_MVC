@@ -1,8 +1,10 @@
-
+#[macro_use]
+extern crate rocket_mvc;
+extern crate rocket;
 
 #[cfg(test)]
 mod test {
-    use routes;
+    use rocket_mvc::routes;
     use rocket::local::Client;
     use rocket::http::Status;
 
