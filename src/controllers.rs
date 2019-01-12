@@ -1,7 +1,7 @@
 /// Contains REST routes for recipes
 pub mod recipes {
 
-    use diesel::RunQueryDsl;
+    use diesel::{RunQueryDsl, QueryDsl, ExpressionMethods};
     use rocket::request::Form;
     use rocket::http::Status;
     use rocket_contrib::json::Json;
@@ -51,9 +51,6 @@ pub mod recipes {
 
     #[put("/<recipe_id>", data = "<form_data>")]
     pub fn update(recipe_id: i32, form_data: Form<forms::Recipe>) -> Status {
-        use diesel::ExpressionMethods;
-        use diesel::QueryDsl;
-
         let connection = database::establish_connection();
 
         let result = diesel::update(recipes.find(recipe_id))
@@ -64,6 +61,19 @@ pub mod recipes {
             Ok(_) => Status::Accepted,
             Err(error) => {
                 println!("Cannot update the recipe: {:?}", error);
+                Status::BadRequest
+            },
+        }
+    }
+
+    #[delete("/<recipe_id>")]
+    pub fn delete(recipe_id: i32) -> Status {
+        let connection = database::establish_connection();
+
+        match diesel::delete(recipes.find(recipe_id)).execute(&connection) {
+            Ok(_) => Status::Accepted,
+            Err(error) => {
+                println!("Cannot delete the recipe: {:?}", error);
                 Status::BadRequest
             },
         }

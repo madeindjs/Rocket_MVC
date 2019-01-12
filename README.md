@@ -66,7 +66,11 @@ $ curl -X GET 'http://localhost:8000/recipes/1'
 {"id":1,"name":"update_from_curl"}
 ~~~
 
+4. Destroy record
 
+~~~bash
+$ curl -X DELETE 'http://localhost:8000/recipes/1'
+~~~
 
 ## Benchmark
 
