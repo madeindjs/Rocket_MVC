@@ -1,20 +1,35 @@
-#[macro_use]
 extern crate rocket_mvc;
 extern crate rocket;
 
-#[cfg(test)]
-mod test {
-    use rocket_mvc::routes;
-    use rocket::local::Client;
-    use rocket::http::Status;
+use rocket_mvc::routes;
+use rocket::local::Client;
 
-    fn get_client() -> Client {
-        Client::new(routes::build()).expect("valid rocket instance")
-    }
+fn get_client() -> Client {
+    Client::new(routes::build()).expect("valid rocket instance")
+}
+
+#[cfg(test)]
+mod pages {
+    use rocket::http::Status;
+    use rocket::local::Client;
 
     #[test]
-    fn pages_home() {
-         let client : Client = get_client();
+    fn home() {
+         let client : Client = super::get_client();
+         let response = client.get("/").dispatch();
+
+         assert_eq!(response.status(), Status::Ok);
+    }
+}
+
+#[cfg(test)]
+mod recipes {
+    use rocket::http::Status;
+    use rocket::local::Client;
+
+    #[test]
+    fn index() {
+         let client : Client = super::get_client();
          let response = client.get("/").dispatch();
 
          assert_eq!(response.status(), Status::Ok);
