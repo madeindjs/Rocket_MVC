@@ -1,4 +1,4 @@
-
+/// Contains REST routes for recipes
 pub mod recipes {
 
     use diesel::RunQueryDsl;
@@ -8,6 +8,7 @@ pub mod recipes {
     use models::Recipe;
     use database;
 
+    /// List all recipes into a beautifull JSON
     #[get("/")]
     pub fn index() -> Json<Vec<Recipe>> {
         let connection = database::establish_connection();
@@ -18,6 +19,7 @@ pub mod recipes {
         Json(results)
     }
 
+    /// Get the given recipe from id and render it into a beautifull JSON
     #[get("/<recipe_id>")]
     pub fn show(recipe_id: i32) -> Json<Recipe> {
         use diesel::ExpressionMethods;
@@ -42,8 +44,10 @@ pub mod recipes {
 
 }
 
+/// Somes pages who not linked with any model
 pub mod pages {
 
+    ///
     #[get("/")]
     pub fn home() -> String {
         "Hello world".to_string()

@@ -1,6 +1,7 @@
 use rocket::Rocket;
 use controllers;
 
+/// Mount all rockets routes 
 pub fn build() -> Rocket {
     rocket::ignite()
     .mount("/", routes![
