@@ -76,7 +76,6 @@ pub mod recipes {
             .set(name.eq(form_data.get().name.to_string()))
             .execute(&connection);
 
-
         match result {
             Ok(_) => Redirect::to(&format!("/recipes/{}", recipe_id)),
             Err(error) => panic!("There was a problem opening the file: {:?}", error),
