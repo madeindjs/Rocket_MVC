@@ -1,7 +1,7 @@
 use rocket::Rocket;
 use controllers;
 
-/// Mount all rockets routes 
+/// Mount all rockets routes
 pub fn build() -> Rocket {
     rocket::ignite()
     .mount("/", routes![
@@ -10,5 +10,6 @@ pub fn build() -> Rocket {
     .mount("/recipes", routes![
         controllers::recipes::index,
         controllers::recipes::show,
+        controllers::recipes::create,
     ])
 }

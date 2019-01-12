@@ -13,6 +13,7 @@ extern crate serde_json;
 
 pub mod models;
 mod schema;
+mod forms;
 mod database;
 mod controllers;
 pub mod routes;

@@ -4,7 +4,7 @@ A REST web application build in [Rust](https://www.rust-lang.org/). It use [Rock
 
 This sample just an applicatio who allow you to edit recipes according to [REST](https://en.wikipedia.org/wiki/Representational_state_transfer) conventions.
 
-- **List** recipes: GET /recipes 
+- **List** recipes: GET /recipes
 - **Create** recipes: POST /recipes
 - **Show** recipe: GET /recipes/<recipe_id>
 - **New** recipe: GET /recipes/new
@@ -40,6 +40,13 @@ And now you can build project
 $ cargo run
 ~~~
 
+## Example
+
+~~~bash
+$ curl -X GET 'http://localhost:8000/recipes'
+$ curl -X POST 'http://localhost:8000/recipes' -d 'name=fromcurl'
+$ curl -X GET 'http://localhost:8000/recipes/1'
+~~~
 
 ## Benchmark
 
