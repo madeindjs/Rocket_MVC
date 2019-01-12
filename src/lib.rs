@@ -7,13 +7,13 @@ extern crate rocket_contrib;
 extern crate diesel;
 #[macro_use]
 extern crate serde_derive;
-extern crate serde;
 extern crate dotenv;
+extern crate serde;
 extern crate serde_json;
 
-pub mod models;
-mod schema;
-mod forms;
-mod database;
 mod controllers;
+mod database;
+mod forms;
+pub mod models;
 pub mod routes;
+mod schema;

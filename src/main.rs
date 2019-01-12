@@ -7,16 +7,16 @@ extern crate rocket_contrib;
 extern crate diesel;
 #[macro_use]
 extern crate serde_derive;
-extern crate serde;
 extern crate dotenv;
+extern crate serde;
 extern crate serde_json;
 
-mod models;
-mod forms;
-mod schema;
-mod database;
 mod controllers;
+mod database;
+mod forms;
+mod models;
 mod routes;
+mod schema;
 
 fn main() {
     routes::build().launch();

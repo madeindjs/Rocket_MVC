@@ -1,15 +1,15 @@
 /// Contains REST routes for recipes
 pub mod recipes {
 
-    use diesel::{RunQueryDsl, QueryDsl, ExpressionMethods};
-    use rocket::request::Form;
+    use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
     use rocket::http::Status;
+    use rocket::request::Form;
     use rocket_contrib::json::Json;
     use schema::recipes::dsl::*;
 
-    use models;
     use database;
     use forms;
+    use models;
 
     /// List all recipes into a beautifull JSON
     #[get("/")]
@@ -42,10 +42,10 @@ pub mod recipes {
 
         match query.execute(&connection) {
             Ok(_) => Status::Created,
-            Err(error) =>{
+            Err(error) => {
                 println!("Cannot create the recipe: {:?}", error);
                 Status::BadRequest
-            },
+            }
         }
     }
 
@@ -62,7 +62,7 @@ pub mod recipes {
             Err(error) => {
                 println!("Cannot update the recipe: {:?}", error);
                 Status::BadRequest
-            },
+            }
         }
     }
 
@@ -75,7 +75,7 @@ pub mod recipes {
             Err(error) => {
                 println!("Cannot delete the recipe: {:?}", error);
                 Status::BadRequest
-            },
+            }
         }
     }
 
@@ -92,12 +92,8 @@ pub mod recipes {
             .expect("Error loading recipes");
 
         match results.first() {
-            Some(recipe) => {
-                recipe.clone()
-            }
-            None => {
-                panic!("Recipe not found")
-            }
+            Some(recipe) => recipe.clone(),
+            None => panic!("Recipe not found"),
         }
     }
 

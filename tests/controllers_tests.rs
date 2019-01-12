@@ -1,8 +1,8 @@
-extern crate rocket_mvc;
 extern crate rocket;
+extern crate rocket_mvc;
 
-use rocket_mvc::routes;
 use rocket::local::Client;
+use rocket_mvc::routes;
 
 fn get_client() -> Client {
     Client::new(routes::build()).expect("valid rocket instance")
@@ -15,10 +15,10 @@ mod pages {
 
     #[test]
     fn home() {
-         let client : Client = super::get_client();
-         let response = client.get("/").dispatch();
+        let client: Client = super::get_client();
+        let response = client.get("/").dispatch();
 
-         assert_eq!(response.status(), Status::Ok);
+        assert_eq!(response.status(), Status::Ok);
     }
 }
 
@@ -29,9 +29,9 @@ mod recipes {
 
     #[test]
     fn index() {
-         let client : Client = super::get_client();
-         let response = client.get("/").dispatch();
+        let client: Client = super::get_client();
+        let response = client.get("/").dispatch();
 
-         assert_eq!(response.status(), Status::Ok);
+        assert_eq!(response.status(), Status::Ok);
     }
 }
