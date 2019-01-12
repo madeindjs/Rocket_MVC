@@ -1,5 +1,5 @@
 #![feature(proc_macro_hygiene, decl_macro)]
-
+/// This file is used to load all modules needed to run units tests
 #[macro_use]
 extern crate rocket;
 extern crate rocket_contrib;
@@ -14,10 +14,6 @@ extern crate serde_json;
 mod controllers;
 mod database;
 mod forms;
-mod models;
-mod routes;
+pub mod models;
+pub mod routes;
 mod schema;
-
-fn main() {
-    routes::build().launch();
-}

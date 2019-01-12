@@ -1,1 +1,6 @@
-infer_schema!("dotenv:DATABASE_URL");
+table! {
+    recipes (id) {
+        id -> Integer,
+        name -> Text,
+    }
+}
