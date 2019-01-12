@@ -18,6 +18,8 @@ mod models;
 mod schema;
 mod database;
 mod controllers;
+mod tests;
+mod routes;
 
 // use schema::recipes;
 
@@ -29,14 +31,7 @@ mod controllers;
 
 
 
+
 fn main() {
-    rocket::ignite()
-    .mount("/", routes![
-        controllers::pages::home,
-    ])
-    .mount("/recipes", routes![
-        controllers::recipes::index,
-        controllers::recipes::show,
-    ])
-    .launch();
+    routes::build().launch();
 }
